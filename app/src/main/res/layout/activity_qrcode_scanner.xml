@@ -12,4 +12,11 @@
         android:layout_height="350sp"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Point to the QR Code"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/qr_scanner_surface"/>
 </RelativeLayout>
