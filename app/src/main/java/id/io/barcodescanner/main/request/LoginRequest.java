@@ -1,10 +1,9 @@
-package model;
+package id.io.barcodescanner.main.request;
 
-/**
- * Dibuat oleh petersam
- */
 public class LoginRequest {
+
     private String uname;
+
     private String password;
 
     public LoginRequest() {

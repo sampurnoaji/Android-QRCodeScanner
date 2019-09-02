@@ -2,29 +2,40 @@ package id.io.barcodescanner.main.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.barcodescanner.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import model.LoginRequest;
-import model.ResponseType;
-import model.User;
-import network.Client;
-import network.Service;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import id.io.barcodescanner.main.request.LoginRequest;
+import id.io.barcodescanner.main.response.ServerResponse;
+import id.io.barcodescanner.main.server.Api;
+import id.io.barcodescanner.main.server.UtilsApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText username, password;
+    private EditText txtUsername, txtPassword;
     private Button btnLogin;
-    private Service service;
-    private User user;
-    private LoginRequest loginRequest;
+
+    Context mContext;
+    Api mApiService;
+    ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,34 +46,69 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "login click", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(LoginActivity.this, UserActivity.class));
-//                finish();
-                requestUser();
+                if (validateLogin(txtUsername.getText().toString(), txtPassword.getText().toString())) {
+                    doLogin(txtUsername.getText().toString(), txtPassword.getText().toString());
+                }
             }
         });
     }
 
     private void bindView() {
-        username = findViewById(R.id.login_username);
-        password = findViewById(R.id.login_password);
+        txtUsername = findViewById(R.id.login_username);
+        txtPassword = findViewById(R.id.login_password);
         btnLogin = findViewById(R.id.login_btn);
+        mContext = this;
+        mApiService = UtilsApi.getAPIService();
+
     }
 
-    private void requestUser(){
-        service = Client.getClient().create(Service.class);
-        Call<ResponseType> loginRequestCall = service.loginRequest("permadi", "Secret123!");
-        loginRequestCall.enqueue(new Callback<ResponseType>() {
+    private boolean validateLogin(String username, String password) {
+        if (username == null || username.trim().length() == 0) {
+            Toast.makeText(this, "Username is required", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (password == null || password.trim().length() == 0) {
+            Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void doLogin(final String username, final String password) {
+        LoginRequest request = new LoginRequest(username, password);
+        loading = ProgressDialog.show(mContext, null, "Logging in ...", true, false);
+        Call<ServerResponse> call = mApiService.login(request);
+        call.enqueue(new Callback<ServerResponse>() {
             @Override
-            public void onResponse(Call<ResponseType> call, Response<ResponseType> response) {
-                ResponseType responseType = response.body();
-                Toast.makeText(LoginActivity.this, ""+responseType.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    getUserDetails(username, password);
+                    startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                    finish();
+                } else {
+                    try {
+                        JSONObject jsonRESULTS = new JSONObject(response.errorBody().string());
+                        String message = jsonRESULTS.getString("message");
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                loading.dismiss();
             }
 
             @Override
-            public void onFailure(Call<ResponseType> call, Throwable t) {
-
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void getUserDetails(String username, String password)
+    {
+        //do something here.
+        //save user details to sqlite,
+
     }
 }
