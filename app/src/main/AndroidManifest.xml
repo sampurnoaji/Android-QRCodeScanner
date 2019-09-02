@@ -18,9 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".DetailInputActivity"></activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activity.UserActivity"></activity>
+        <activity android:name=".activity.DetailInputActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,12 +41,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" >
-
-        </activity>
-        <activity android:name=".DetailRegisterActivity" />
-        <activity android:name=".QRCodeScannerActivity" />
+            android:name=".activity.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+        <activity android:name=".activity.DetailRegisterActivity" />
+        <activity android:name=".activity.QRCodeScannerActivity" />
     </application>
 
 </manifest>
