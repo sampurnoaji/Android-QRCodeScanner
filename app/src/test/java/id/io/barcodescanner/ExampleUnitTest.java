@@ -1,4 +1,4 @@
-package com.example.barcodescanner;
+package id.io.barcodescanner;
 
 import org.junit.Test;
 

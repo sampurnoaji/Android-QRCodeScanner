@@ -1,4 +1,4 @@
-package com.example.barcodescanner;
+package id.io.barcodescanner.main.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.example.barcodescanner.R;
 
 public class DetailInputActivity extends AppCompatActivity {
     private EditText productId, productName, brand, vendor, latitude, longitude;

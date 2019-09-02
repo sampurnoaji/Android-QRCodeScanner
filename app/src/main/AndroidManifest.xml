@@ -18,9 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".DetailInputActivity"></activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name="id.io.barcodescanner.main.activity.UserActivity"></activity>
+        <activity android:name="id.io.barcodescanner.main.activity.DetailInputActivity" />
+        <activity android:name="id.io.barcodescanner.main.activity.LoginActivity" />
+        <activity android:name="id.io.barcodescanner.main.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,12 +41,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" >
-
-        </activity>
-        <activity android:name=".DetailRegisterActivity" />
-        <activity android:name=".QRCodeScannerActivity" />
+            android:name="id.io.barcodescanner.main.activity.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+        <activity android:name="id.io.barcodescanner.main.activity.DetailRegisterActivity" />
+        <activity android:name="id.io.barcodescanner.main.activity.QRCodeScannerActivity" />
     </application>
 
 </manifest>
