@@ -79,7 +79,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
                 SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() > 0){
                     barcodeDetector.release();
-                    ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                    ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 1000);
                     toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
 
                     scanResult = barcodes.valueAt(0).displayValue.toString();

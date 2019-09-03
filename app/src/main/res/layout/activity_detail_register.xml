@@ -6,7 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="id.io.barcodescanner.main.activity.DetailRegisterActivity">
+    tools:context="id.io.barcodescanner.main.activity.DetailRegisterActivity"
+    android:layout_marginTop="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Asset Details"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:focusable="true"
+        android:focusableInTouchMode="true"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,10 +26,10 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Product ID"
+            android:text="Asset ID"
             android:textStyle="bold"/>
         <EditText
-            android:id="@+id/detail_product_id"
+            android:id="@+id/detail_assetId"
             android:layout_width="0dp"
             android:layout_weight="2.5"
             android:layout_height="wrap_content"
@@ -38,10 +47,10 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Product Name"
+            android:text="Asset Code"
             android:textStyle="bold"/>
         <EditText
-            android:id="@+id/detail_product_name"
+            android:id="@+id/detail_assetCode"
             android:layout_width="0dp"
             android:layout_weight="2.5"
             android:layout_height="wrap_content"
@@ -59,10 +68,73 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Brand"
+            android:text="Asset Name"
             android:textStyle="bold"/>
         <EditText
-            android:id="@+id/detail_brand"
+            android:id="@+id/detail_assetName"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:singleLine="true"
+            android:padding="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Asset Type"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/detail_assetType"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:singleLine="true"
+            android:padding="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Manufacture"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/detail_manufacture"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:singleLine="true"
+            android:padding="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Model"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/detail_model"
             android:layout_width="0dp"
             android:layout_weight="2.5"
             android:layout_height="wrap_content"
@@ -84,6 +156,48 @@
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/detail_vendor"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:singleLine="true"
+            android:padding="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/detail_note"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:singleLine="true"
+            android:padding="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Created Date"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/detail_createdDate"
             android:layout_width="0dp"
             android:layout_weight="2.5"
             android:layout_height="wrap_content"

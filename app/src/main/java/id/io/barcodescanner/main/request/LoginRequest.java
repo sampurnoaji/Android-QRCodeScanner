@@ -3,7 +3,6 @@ package id.io.barcodescanner.main.request;
 public class LoginRequest {
 
     private String uname;
-
     private String password;
 
     public LoginRequest() {

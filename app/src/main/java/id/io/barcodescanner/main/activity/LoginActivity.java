@@ -82,8 +82,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 if (response.isSuccessful()) {
-                    getUserDetails(username, password);
-                    startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                    Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+                    intent.putExtra("userData", getUserDetails(username, password));
+                    startActivity(intent);
                     finish();
                 } else {
                     try {
@@ -102,13 +103,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                loading.dismiss();
             }
         });
     }
-    private void getUserDetails(String username, String password)
-    {
-        //do something here.
-        //save user details to sqlite,
 
+    private String getUserDetails(String username, String password) {
+        String userData = username + "-" + password;
+        return userData;
     }
 }
