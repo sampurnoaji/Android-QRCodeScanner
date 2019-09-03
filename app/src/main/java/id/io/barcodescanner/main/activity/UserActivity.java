@@ -76,8 +76,9 @@ public class UserActivity extends AppCompatActivity {
                     txtRole.setText(list.get(0).getRole());
                     txtMemberCode.setText(list.get(0).getMemberCode());
                     txtEmail.setText(list.get(0).getEmail());
+                    txtImage.setText(list.get(0).getImage());
                     txtLevel.setText(list.get(0).getLevel());
-                    txtLevel.setText(list.get(0).getDepartment());
+                    txtDepartment.setText(list.get(0).getDepartment());
                 } else {
                     try {
                         JSONObject jsonRESULTS = new JSONObject(response.errorBody().string());

@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailRegisterActivity extends AppCompatActivity {
-    private EditText txtAssetId, txtAssetCode, txtAssetName, txtAssetType, txtManufacture, txtModel,
+    private EditText  txtAssetCode, txtAssetName, txtAssetType, txtManufacture, txtModel,
             txtVendor, txtNote, txtCreatedDate;
     private Button btnRegister;
     private String scanResult;
@@ -42,7 +42,9 @@ public class DetailRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_register);
         bindView();
-//        getAssetDetails();
+
+        getAssetDetails();
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +58,6 @@ public class DetailRegisterActivity extends AppCompatActivity {
     }
 
     private void bindView() {
-        txtAssetId = findViewById(R.id.detail_assetId);
         txtAssetCode = findViewById(R.id.detail_assetCode);
         txtAssetName = findViewById(R.id.detail_assetName);
         txtAssetType = findViewById(R.id.detail_assetType);
@@ -66,6 +67,10 @@ public class DetailRegisterActivity extends AppCompatActivity {
         txtNote = findViewById(R.id.detail_note);
         txtCreatedDate = findViewById(R.id.detail_createdDate);
         btnRegister = findViewById(R.id.detail_btn_register);
+
+
+        context = this;
+        api = UtilsApi.getAPIService();
     }
 
     private void getAssetDetails() {
@@ -73,8 +78,7 @@ public class DetailRegisterActivity extends AppCompatActivity {
         if (bundle != null){
             scanResult = bundle.getString("scanResult");
         }
-        context = this;
-        api = UtilsApi.getAPIService();
+
         AssetRequest request = new AssetRequest(scanResult);
         loading = ProgressDialog.show(context, null, "Getting User Details...", false, false);
         Call<List<AssetDetails>> call = api.getAssetDetails(request);
@@ -90,7 +94,7 @@ public class DetailRegisterActivity extends AppCompatActivity {
                     txtModel.setText(list.get(0).getModel());
                     txtVendor.setText(list.get(0).getVendor());
                     txtNote.setText(list.get(0).getNote());
-                    txtCreatedDate.setText(list.get(0).getRegister_date().toString());
+                    txtCreatedDate.setText(list.get(0).getRegister_date());
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -107,7 +111,7 @@ public class DetailRegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<AssetDetails>> call, Throwable t) {
-                Toast.makeText(DetailRegisterActivity.this, "failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailRegisterActivity.this, "ERROR : " + t.toString(), Toast.LENGTH_SHORT).show();
                 loading.dismiss();
             }
         });

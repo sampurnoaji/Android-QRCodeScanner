@@ -1,12 +1,11 @@
 package id.io.barcodescanner.main.response;
 
-import java.sql.Timestamp;
 
 /**
  * Dibuat oleh petersam
  */
 public class AssetDetails {
-    private int assetId;
+
     private String code;
     private String name;
     private String type;
@@ -14,18 +13,20 @@ public class AssetDetails {
     private String model;
     private String vendor;
     private String note;
-    private Timestamp register_date;
+    private String register_date;
 
-    public AssetDetails(int assetId) {
-        this.assetId = assetId;
+    public AssetDetails() {
     }
 
-    public int getAssetId() {
-        return assetId;
-    }
-
-    public void setAssetId(int assetId) {
-        this.assetId = assetId;
+    public AssetDetails(String code, String name, String type, String manufacture, String model, String vendor, String note, String register_date) {
+        this.code = code;
+        this.name = name;
+        this.type = type;
+        this.manufacture = manufacture;
+        this.model = model;
+        this.vendor = vendor;
+        this.note = note;
+        this.register_date = register_date;
     }
 
     public String getCode() {
@@ -84,11 +85,11 @@ public class AssetDetails {
         this.note = note;
     }
 
-    public Timestamp getRegister_date() {
+    public String getRegister_date() {
         return register_date;
     }
 
-    public void setRegister_date(Timestamp register_date) {
+    public void setRegister_date(String register_date) {
         this.register_date = register_date;
     }
 }
