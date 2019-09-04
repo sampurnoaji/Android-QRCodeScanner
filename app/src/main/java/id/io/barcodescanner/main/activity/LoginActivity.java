@@ -54,9 +54,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void bindView() {
-        txtUsername = findViewById(R.id.login_username);
+        txtUsername = findViewById(R.id.login_emailid);
         txtPassword = findViewById(R.id.login_password);
-        btnLogin = findViewById(R.id.login_btn);
+        btnLogin = findViewById(R.id.loginBtn);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
 
@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                     intent.putExtra("userData", getUserDetails(username, password));
                     startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     finish();
                 } else {
                     try {
