@@ -41,10 +41,10 @@ dependencies {
     androidTestImplementation "androidx.test:runner:${runner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${espressoCore}"
 
-
     implementation "com.google.android.gms:play-services-vision:${playServiceVision}"
     implementation "com.google.android.gms:play-services-maps:${playServiceMaps}"
     implementation "com.squareup.retrofit2:retrofit:${retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${converterGson}"
     implementation "com.squareup.okhttp3:logging-interceptor:${loggingInterceptor}"
+
 }

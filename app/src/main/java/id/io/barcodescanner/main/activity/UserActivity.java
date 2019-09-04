@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 public class UserActivity extends AppCompatActivity {
     private TextView txtUname, txtAlias, txtRole, txtMemberCode, txtEmail, txtImage, txtLevel, txtDepartment;
-    private Button btnSwitchUser, btnNext;
+    private Button btnNext;
     Context mContext;
     Api mApiService;
     ProgressDialog loading;
@@ -52,7 +52,6 @@ public class UserActivity extends AppCompatActivity {
         txtImage = findViewById(R.id.user_image);
         txtLevel = findViewById(R.id.user_level);
         txtDepartment = findViewById(R.id.user_department);
-        btnSwitchUser = findViewById(R.id.user_btn_switch);
         btnNext = findViewById(R.id.user_btn_next);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
@@ -102,13 +101,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void setupButton(){
-        btnSwitchUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(UserActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

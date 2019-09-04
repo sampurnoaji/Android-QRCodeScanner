@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background_color"
     tools:context="id.io.barcodescanner.main.activity.UserActivity"
     android:gravity="center">
 
@@ -180,17 +181,12 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="15dp">
-        <Button
-            android:id="@+id/user_btn_switch"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Switch User"
-            android:textAllCaps="false"/>
+
         <Button
             android:id="@+id/user_btn_next"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Next"
+            android:text="Scan"
             android:textAllCaps="false"/>
     </LinearLayout>
 </LinearLayout>
