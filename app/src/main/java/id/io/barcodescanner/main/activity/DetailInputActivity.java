@@ -12,75 +12,132 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.barcodescanner.R;
 
+import java.io.Serializable;
+
+import id.io.barcodescanner.main.request.SendAssetRequest;
+
 public class DetailInputActivity extends AppCompatActivity {
-    private EditText productId, productName, brand, vendor, latitude, longitude;
+    private EditText txtAssetCode, txtLocationName, txtBuildingName, txtMemberCode,
+            txtRate, txtLatitude, txtLongitude, txtNote;
+    private String txtAssetCodeValue, txtLocationNameValue, txtBuildingNameValue, txtMemberCodeValue,
+            txtRateValue, txtLatitudeValue, txtLongitudeValue, txtNoteValue;
     private Button btnSend;
-    private String productIdValue;
     private double latitudeValue, longitudeValue;
     private ImageView img1, img2, img3;
     private final int requestCode1 = 1;
     private final int requestCode2 = 2;
     private final int requestCode3 = 3;
+    private SendAssetRequest assetModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_input);
         bindView();
-        setLatLng();
-        setDetail();
         setPhoto();
+        getAssetCode();
+        toMapsActivity();
     }
 
     private void bindView() {
-        productId = findViewById(R.id.input_product_id);
-        productName = findViewById(R.id.input_product_name);
-        brand = findViewById(R.id.input_brand);
-        vendor = findViewById(R.id.input_vendor);
-        latitude = findViewById(R.id.input_latitude);
-        longitude = findViewById(R.id.input_longitude);
+        txtAssetCode = findViewById(R.id.input_assetCode);
+        txtLocationName = findViewById(R.id.input_locationName);
+        txtBuildingName = findViewById(R.id.input_buildingName);
+        txtMemberCode = findViewById(R.id.input_memberCode);
+        txtRate = findViewById(R.id.input_rate);
+        txtNote = findViewById(R.id.input_note);
+        txtLatitude = findViewById(R.id.input_latitude);
+        txtLongitude = findViewById(R.id.input_longitude);
         img1 = findViewById(R.id.input_img1);
         img2 = findViewById(R.id.input_img2);
         img3 = findViewById(R.id.input_img3);
         btnSend = findViewById(R.id.input_btn_send);
     }
 
-    private void setDetail(){
+    private void setAssetModel() {
+        getEditTextValue();
+        assetModel.setAssetCode(txtAssetCodeValue);
+        assetModel.setLocationName(txtLocationNameValue);
+        assetModel.setBuildingName(txtBuildingNameValue);
+        if (txtMemberCodeValue.equals("")){
+            assetModel.setMemberCode(0);
+        } else {
+            assetModel.setMemberCode(Integer.valueOf(txtMemberCodeValue));
+        }
+        if (txtRateValue.equals("")){
+            assetModel.setRate(0);
+        } else {
+            assetModel.setRate(Integer.valueOf(txtRateValue));
+        }
+        assetModel.setNote(txtNoteValue);
+        assetModel.setGeoLocation(txtLatitudeValue + ", " + txtLongitudeValue);
+    }
+
+    private void getAssetCode(){
+        getEditTextValue();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            productIdValue = bundle.getString("productId");
-            latitudeValue = bundle.getDouble("lat");
-            longitudeValue = bundle.getDouble("lng");
-
-            productId.setText(productIdValue);
-            latitude.setText(String.valueOf(latitudeValue));
-            longitude.setText(String.valueOf(longitudeValue));
+            String flag = bundle.getString("flag");
+            if (flag.equals("fromRegisterActivity")){
+                txtAssetCodeValue = bundle.getString("assetCode");
+                txtAssetCode.setText(txtAssetCodeValue);
+            } else {
+                assetModel = (SendAssetRequest) bundle.getSerializable("newModel");
+                latitudeValue = bundle.getDouble("lat");
+                longitudeValue = bundle.getDouble("lng");
+                setEditTextValue(assetModel, latitudeValue, longitudeValue);
+            }
         }
     }
 
-    private void setLatLng(){
-        setDetail();
-        latitude.setOnTouchListener(new View.OnTouchListener() {
+    private void toMapsActivity(){
+        assetModel = new SendAssetRequest();
+        txtLatitude.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Intent intent = new Intent(DetailInputActivity.this, MapsActivity.class);
-                intent.putExtra("productId", productIdValue);
+                setAssetModel();
+                intent.putExtra("model", assetModel);
                 startActivity(intent);
                 return true;
             }
         });
-        longitude.setOnTouchListener(new View.OnTouchListener() {
+        txtLongitude.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Intent intent = new Intent(DetailInputActivity.this, MapsActivity.class);
-                intent.putExtra("productId", productIdValue);
+                setAssetModel();
+                intent.putExtra("model", assetModel);
                 startActivity(intent);
                 return true;
             }
         });
+    }
+
+    private void getEditTextValue(){
+        txtAssetCodeValue = txtAssetCode.getText().toString();
+        txtLocationNameValue = txtLocationName.getText().toString();
+        txtBuildingNameValue = txtBuildingName.getText().toString();
+        txtMemberCodeValue = txtMemberCode.getText().toString();
+        txtRateValue = txtRate.getText().toString();
+        txtNoteValue = txtNote.getText().toString();
+        txtLatitudeValue = txtLatitude.getText().toString();
+        txtLongitudeValue = txtLongitude.getText().toString();
+    }
+
+    private void setEditTextValue(SendAssetRequest assetModel, double lat, double lng){
+        txtAssetCode.setText(assetModel.getAssetCode());
+        txtLocationName.setText(assetModel.getLocationName());
+        txtBuildingName.setText(assetModel.getBuildingName());
+        txtMemberCode.setText(""+ assetModel.getMemberCode());
+        txtRate.setText(""+ assetModel.getRate());
+        txtNote.setText(assetModel.getNote());
+        txtLatitude.setText(""+ lat);
+        txtLongitude.setText(""+ lng);
     }
 
     private void setPhoto(){

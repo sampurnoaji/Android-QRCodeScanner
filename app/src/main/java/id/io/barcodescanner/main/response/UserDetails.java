@@ -13,6 +13,17 @@ public class UserDetails {
     private String level;
     private String department;
 
+    public UserDetails(String username, String alias, String role, String memberCode, String email, String image, String level, String department) {
+        this.username = username;
+        this.alias = alias;
+        this.role = role;
+        this.memberCode = memberCode;
+        this.email = email;
+        this.image = image;
+        this.level = level;
+        this.department = department;
+    }
+
     public String getUsername() {
         return username;
     }

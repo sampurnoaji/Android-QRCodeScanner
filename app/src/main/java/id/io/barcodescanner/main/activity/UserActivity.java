@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
+import id.io.barcodescanner.main.repository.SqliteDatabase;
 import id.io.barcodescanner.main.request.LoginRequest;
 import id.io.barcodescanner.main.response.UserDetails;
 import id.io.barcodescanner.main.server.Api;
@@ -29,10 +30,13 @@ import retrofit2.Response;
 
 public class UserActivity extends AppCompatActivity {
     private TextView txtUname, txtAlias, txtRole, txtMemberCode, txtEmail, txtImage, txtLevel, txtDepartment;
-    private Button btnSwitchUser, btnNext;
+    private Button btnLogout, btnNext;
     Context mContext;
     Api mApiService;
     ProgressDialog loading;
+    private List<UserDetails> list;
+    private UserDetails userDetails;
+    private SqliteDatabase sqliteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +56,11 @@ public class UserActivity extends AppCompatActivity {
         txtImage = findViewById(R.id.user_image);
         txtLevel = findViewById(R.id.user_level);
         txtDepartment = findViewById(R.id.user_department);
-        btnSwitchUser = findViewById(R.id.user_btn_switch);
+        btnLogout = findViewById(R.id.user_btn_logout);
         btnNext = findViewById(R.id.user_btn_next);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
+        sqliteDatabase = new SqliteDatabase(mContext);
     }
 
     private void getUserData(){
@@ -70,8 +75,9 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<UserDetails>> call, Response<List<UserDetails>> response) {
                 if (response.isSuccessful()){
-                    List<UserDetails> list = response.body();
-                    txtUname.setText(list.get(0).getUsername());
+                    list = response.body();
+                    userDetails = list.get(0);
+                    txtUname.setText(userDetails.getUsername());
                     txtAlias.setText(list.get(0).getAlias());
                     txtRole.setText(list.get(0).getRole());
                     txtMemberCode.setText(list.get(0).getMemberCode());
@@ -79,6 +85,7 @@ public class UserActivity extends AppCompatActivity {
                     txtImage.setText(list.get(0).getImage());
                     txtLevel.setText(list.get(0).getLevel());
                     txtDepartment.setText(list.get(0).getDepartment());
+                    sqliteDatabase.insertData(userDetails);
                 } else {
                     try {
                         JSONObject jsonRESULTS = new JSONObject(response.errorBody().string());
@@ -102,9 +109,10 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void setupButton(){
-        btnSwitchUser.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sqliteDatabase.deleteData();
                 startActivity(new Intent(UserActivity.this, LoginActivity.class));
                 finish();
             }

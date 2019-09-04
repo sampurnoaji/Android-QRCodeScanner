@@ -22,11 +22,6 @@
         <activity android:name="id.io.barcodescanner.main.activity.DetailInputActivity" />
         <activity android:name="id.io.barcodescanner.main.activity.LoginActivity" />
         <activity android:name="id.io.barcodescanner.main.activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -42,9 +37,16 @@
 
         <activity
             android:name="id.io.barcodescanner.main.activity.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps">
+        </activity>
         <activity android:name="id.io.barcodescanner.main.activity.DetailRegisterActivity" />
-        <activity android:name="id.io.barcodescanner.main.activity.QRCodeScannerActivity" />
+        <activity android:name="id.io.barcodescanner.main.activity.QRCodeScannerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

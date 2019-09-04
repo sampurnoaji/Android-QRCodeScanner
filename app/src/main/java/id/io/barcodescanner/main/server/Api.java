@@ -4,6 +4,7 @@ import java.util.List;
 
 import id.io.barcodescanner.main.request.AssetRequest;
 import id.io.barcodescanner.main.request.LoginRequest;
+import id.io.barcodescanner.main.request.SendAssetRequest;
 import id.io.barcodescanner.main.response.AssetDetails;
 import id.io.barcodescanner.main.response.ServerResponse;
 import id.io.barcodescanner.main.response.UserDetails;
@@ -27,4 +28,7 @@ public interface Api {
     @POST("mobile/asset")
     Call<List<AssetDetails>> getAssetDetails(@Body AssetRequest assetCode);
 
+    @Headers("Content-Type: application/json")
+    @POST("mobile/asset/register")
+    Call<ServerResponse> registerAsset(@Body SendAssetRequest sendAssetRequest);
 }

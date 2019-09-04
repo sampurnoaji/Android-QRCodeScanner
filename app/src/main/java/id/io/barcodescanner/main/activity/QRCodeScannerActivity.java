@@ -26,7 +26,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
     private SurfaceView surfaceQRScanner;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
-    private String scanResult = "";
+    private String scanResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +82,10 @@ public class QRCodeScannerActivity extends AppCompatActivity {
                     ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 1000);
                     toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
 
-                    scanResult = barcodes.valueAt(0).displayValue.toString();
+                    scanResult = barcodes.valueAt(0).displayValue;
 
                     Intent intent = new Intent(getApplicationContext(), DetailRegisterActivity.class);
-                    intent.putExtra("scanResult", scanResult);
+                    intent.putExtra("assetCode", scanResult);
                     startActivity(intent);
                 }
             }

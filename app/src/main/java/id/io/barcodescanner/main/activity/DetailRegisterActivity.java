@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barcodescanner.R;
@@ -28,10 +28,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailRegisterActivity extends AppCompatActivity {
-    private EditText  txtAssetCode, txtAssetName, txtAssetType, txtManufacture, txtModel,
+    private TextView txtAssetCode, txtAssetName, txtAssetType, txtManufacture, txtModel,
             txtVendor, txtNote, txtCreatedDate;
     private Button btnRegister;
-    private String scanResult;
+    private String assetCode;
 
     Context context;
     Api api;
@@ -42,17 +42,15 @@ public class DetailRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_register);
         bindView();
-
         getAssetDetails();
-
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailRegisterActivity.this, DetailInputActivity.class);
-                intent.putExtra("productId", scanResult);
-//                startActivity(intent);
-                getAssetDetails();
+                intent.putExtra("assetCode", assetCode);
+                intent.putExtra("flag", "fromRegisterActivity");
+                startActivity(intent);
             }
         });
     }
@@ -68,7 +66,6 @@ public class DetailRegisterActivity extends AppCompatActivity {
         txtCreatedDate = findViewById(R.id.detail_createdDate);
         btnRegister = findViewById(R.id.detail_btn_register);
 
-
         context = this;
         api = UtilsApi.getAPIService();
     }
@@ -76,10 +73,10 @@ public class DetailRegisterActivity extends AppCompatActivity {
     private void getAssetDetails() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            scanResult = bundle.getString("scanResult");
+            assetCode = bundle.getString("assetCode");
         }
 
-        AssetRequest request = new AssetRequest(scanResult);
+        AssetRequest request = new AssetRequest(assetCode);
         loading = ProgressDialog.show(context, null, "Getting User Details...", false, false);
         Call<List<AssetDetails>> call = api.getAssetDetails(request);
         call.enqueue(new Callback<List<AssetDetails>>() {

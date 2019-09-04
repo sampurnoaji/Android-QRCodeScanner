@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="id.io.barcodescanner.main.activity.DetailInputActivity"
-    android:orientation="vertical">
+    android:paddingTop="10dp">
+    <TextView
+        android:id="@+id/input_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Asset Details"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:focusable="true"
+        android:focusableInTouchMode="true"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/input_title"
+        android:layout_marginTop="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -18,16 +29,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginRight="10dp">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Product ID"
+                    android:text="Asset Code"
                     android:textStyle="bold"/>
                 <EditText
-                    android:id="@+id/input_product_id"
+                    android:id="@+id/input_assetCode"
                     android:layout_width="0dp"
                     android:layout_weight="2.5"
                     android:layout_height="wrap_content"
@@ -45,10 +55,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Product Name"
+                    android:text="Location Name"
                     android:textStyle="bold"/>
                 <EditText
-                    android:id="@+id/input_product_name"
+                    android:id="@+id/input_locationName"
                     android:layout_width="0dp"
                     android:layout_weight="2.5"
                     android:layout_height="wrap_content"
@@ -66,10 +76,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Brand"
+                    android:text="Building Name"
                     android:textStyle="bold"/>
                 <EditText
-                    android:id="@+id/input_brand"
+                    android:id="@+id/input_buildingName"
                     android:layout_width="0dp"
                     android:layout_weight="2.5"
                     android:layout_height="wrap_content"
@@ -87,10 +97,54 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Vendor"
+                    android:text="Member Code"
                     android:textStyle="bold"/>
                 <EditText
-                    android:id="@+id/input_vendor"
+                    android:id="@+id/input_memberCode"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:singleLine="true"
+                    android:padding="5dp"
+                    android:inputType="number"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Rate"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/input_rate"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:singleLine="true"
+                    android:padding="5dp"
+                    android:inputType="number"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Note"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/input_note"
                     android:layout_width="0dp"
                     android:layout_weight="2.5"
                     android:layout_height="wrap_content"
@@ -140,11 +194,10 @@
                     android:singleLine="true"
                     android:padding="5dp"/>
             </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
                 android:text="Add Photo"
                 android:textStyle="bold"/>
@@ -181,15 +234,15 @@
                     android:scaleType="fitCenter"
                     android:padding="3dp"/>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/input_btn_send"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:text="Send"
-                android:textAllCaps="false"/>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+    <Button
+        android:id="@+id/input_btn_send"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:text="Send"
+        android:textAllCaps="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

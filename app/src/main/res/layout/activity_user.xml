@@ -181,10 +181,10 @@
         android:gravity="center"
         android:layout_marginTop="15dp">
         <Button
-            android:id="@+id/user_btn_switch"
+            android:id="@+id/user_btn_logout"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Switch User"
+            android:text="Logout"
             android:textAllCaps="false"/>
         <Button
             android:id="@+id/user_btn_next"
