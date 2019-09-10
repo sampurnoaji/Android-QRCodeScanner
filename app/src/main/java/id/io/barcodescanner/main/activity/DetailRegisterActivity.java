@@ -97,6 +97,9 @@ public class DetailRegisterActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         String message = jsonObject.getString("message");
                         Toast.makeText(DetailRegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                        if (jsonObject.getInt("code") == 403){
+                            onBackPressed();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -112,5 +115,12 @@ public class DetailRegisterActivity extends AppCompatActivity {
                 loading.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(DetailRegisterActivity.this, QRCodeScannerActivity.class));
+        finish();
     }
 }
